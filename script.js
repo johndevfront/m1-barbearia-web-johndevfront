@@ -17,29 +17,120 @@ const barbearia = {
     estaAberto: true,
 };
   
-  
 function buscaCortePorId(id) {
+    for(let i = 0; i < barbearia.cortes.length; i++) {
+         barbearia.cortes[i]
+
+        if( barbearia.cortes[i].id == id) {
+            return barbearia.cortes[i];
+        }
+    
+    }
+        return "Corte não encontrado"
+    }
+    
+ console.log(buscaCortePorId())
+   
+ function buscaBarbaPorId(id) {
+    for (let i = 0; i < barbearia.barbas.length; i++) {
+        barbearia.barbas[i]
+
+        if(barbearia.barbas[i].id == id) {
+            return barbearia.barbas[i];
+        }
+
+    }
+    return "Barba não encontrada"
 }
 
-function buscaBarbaPorId(id) {
-}
+console.log(buscaBarbaPorId())
+
 
 function verificaStatusBarbearia() {
+    if(barbearia.estaAberto ) {
+        return `Estamos abertos`
+    }else {
+        return `Estamos fechados`
+    }
 }
+
+console.log(verificaStatusBarbearia())
+
+
 
 function retornaTodosCortes() {
+    for (let i = 0; i < barbearia.cortes.length; i++) {
+        return barbearia.cortes
+
+    }
 }
+
+console.log(retornaTodosCortes())
+
+
 
 function retornaTodasBarbas() {
+
+    for (let i = 0; i < barbearia.barbas.length; i++) {
+        return barbearia.barbas
+
+    }
 }
+
+console.log(retornaTodasBarbas())
+
+
+
 
 function criaPedido(nomeCliente, corteId, barbaId) {
-}
 
-function atualizarServico(lista, id, valor, tipo) {
-}
+    let todosCortesId = [];
+    let todasBarbasId = [];
 
-function calculaTotal(pedido) {
-}
+    for(let i = 0; i < barbearia.cortes.length; i++) {
+      todosCortesId.push(buscaCortePorId(corteId));
+    }
+
+    for(let i = 0; i < barbearia.barbas.length; i++) {
+      todasBarbasId.push(buscaBarbaPorId(barbaId));
+    }
+
+    const pedido = {
+        nome: nomeCliente,
+        pedidoCorte:todosCortesId[0].tipo,
+        pedidoCortePreco: todosCortesId[0].valor,
+        pedidoBarba: todasBarbasId[0].tipo, 
+        pedidoBarbaPreco: todasBarbasId[0].valor,
+
+    }
+
+    return  pedido
+
+  }
+
+  console.log(criaPedido('jonathan','1','5'))
+
+
   
-  
+  function atualizarServico(lista, id, valor, tipo) {
+
+    for(let i = 0; i < lista.length; i++) {
+       
+       if(lista[i].id == id) {
+         lista[i].valor = valor;
+         lista[i].tipo = tipo;
+         return lista;
+       }
+    }
+    return lista;
+   }
+
+   
+
+   function calculaTotal(pedido) {
+
+    const total = pedido.pedidoBarbaPreco + pedido.pedidoCortePreco;
+    return total;   
+  }
+
+   
